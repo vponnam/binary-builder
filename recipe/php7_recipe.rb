@@ -90,6 +90,14 @@ class Php7Recipe < BaseRecipe
     lib_dir = `lsb_release -r | awk '{print $2}'`.strip == '18.04' ?
                   '/usr/lib/x86_64-linux-gnu' :
                   '/usr/lib'
+    argon_dir = `lsb_release -r | awk '{print $2}'`.strip == '18.04' ?
+                  '/usr/lib/x86_64-linux-gnu' :
+                  '/usr/local/lib'
+    puts "___________________________"
+    puts "argon_dir: #{argon_dir}"
+    puts "/usr/local/lib contents: #{`ls -la /usr/local/lib`}"
+    puts "#{argon_dir} contents: #{`ls -la #{argon_dir}`}"
+    puts "___________________________"
 
     system <<-eof
       cp -a /usr/local/lib/x86_64-linux-gnu/librabbitmq.so* #{path}/lib/
@@ -101,7 +109,7 @@ class Php7Recipe < BaseRecipe
       cp -a #{@libmemcached_path}/lib/libmemcached.so* #{path}/lib/
       cp -a /usr/local/lib/x86_64-linux-gnu/libcassandra.so* #{path}/lib
       cp -a /usr/local/lib/libuv.so* #{path}/lib
-      cp -a /usr/local/lib/libargon2.so* #{path}/lib
+
       cp -a /usr/lib/librdkafka.so* #{path}/lib
       cp -a /usr/lib/x86_64-linux-gnu/libGeoIP.so* #{path}/lib/
       cp -a /usr/lib/x86_64-linux-gnu/libgpgme.so* #{path}/lib/

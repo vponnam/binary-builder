@@ -175,7 +175,7 @@ class PhpMeal
   end
 
   def php7_cflinuxfs3_apt_packages
-    %w(libkrb5-dev libssl-dev libcurl4-openssl-dev)
+    %w(libkrb5-dev libssl-dev libcurl4-openssl-dev libargon2-0-dev)
   end
 
   def php7_cflinuxfs2_apt_packages
@@ -220,11 +220,13 @@ class PhpMeal
   end
 
   def install_argon2
+    ENV['STACK'] == 'cflinuxfs3' ? ' find . -iname "*argon*"' :
     %q((
       cd /tmp
       curl -L -O https://github.com/P-H-C/phc-winner-argon2/archive/20171227.tar.gz
       tar zxf 20171227.tar.gz
       cd phc-winner-argon2-20171227
+      echo 'curled *******************'
       make
       make test
       make install PREFIX=/usr/local

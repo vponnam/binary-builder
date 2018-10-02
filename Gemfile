@@ -15,4 +15,5 @@ group :development do
   gem 'rainbow', '~> 2.1.0'
   gem 'rubocop', '~> 0.43.0'
   gem 'rubocop-rspec', '~> 1.7.0'
+  gem 'pry'
 end
